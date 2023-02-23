@@ -41,13 +41,14 @@ public class CategoryController {
 		System.out.println("Sort Field: " + sortField);
 		System.out.println("Sort Field: " + sortDir);
 		
-		Page<Category> page = service.listPerPage(pageNum,sortField,sortDir,keyword);
-		List<Category> listCategories = page.getContent();
+		CategoryPageInfo pageInfo = new CategoryPageInfo();
+		List<Category> listCategories = service.listByPage(pageInfo,pageNum,sortDir,keyword);
+		
 
-		long startCount = (pageNum - 1) * CategoryService.CATEGORIES_PER_PAGE + 1;
-		long endCount = startCount + CategoryService.CATEGORIES_PER_PAGE - 1;
-		if (endCount > page.getTotalElements()) {
-			endCount = page.getTotalElements();
+		long startCount = (pageNum - 1) * CategoryService.ROOT_CATEGORIES_PER_PAGE  + 1;
+		long endCount = startCount + CategoryService.ROOT_CATEGORIES_PER_PAGE  - 1;
+		if (endCount > pageInfo.getTotalElements()) {
+			endCount = pageInfo.getTotalElements();
 		}
 		
 		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
@@ -56,8 +57,8 @@ public class CategoryController {
 		model.addAttribute("currentPage", pageNum);
 		model.addAttribute("startCount", startCount);
 		model.addAttribute("endCount", endCount);
-		model.addAttribute("totalPages", page.getTotalPages());
-		model.addAttribute("totalItems", page.getTotalElements());
+		model.addAttribute("totalPages", pageInfo.getTotalPages());
+		model.addAttribute("totalItems", pageInfo.getTotalElements());
 		model.addAttribute("sortField", sortField);
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", reverseSortDir);
@@ -68,10 +69,11 @@ public class CategoryController {
 
 	@GetMapping("/categories/new")
 	public String createNewCategory(Model model) {
-		Category category = new Category();
+		List<Category> listCategories = service.listCategoriesUsedInForm();
 
-		model.addAttribute("category", category);
-		model.addAttribute("pageTittle", "Create New");
+		model.addAttribute("category", new Category());
+		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("pageTittle", "Create New Category");
 
 		return "categories/categories_form";
 	}

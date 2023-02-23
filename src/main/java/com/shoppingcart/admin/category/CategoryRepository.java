@@ -1,7 +1,10 @@
 package com.shoppingcart.admin.category;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -16,4 +19,13 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 	
 	@Query("Select c FROM Category c where c.name LIKE %?1% OR c.alias LIKE %?1%")
 	public  Page<Category> findAll(String keyword,Pageable pageable);
+	
+	@Query("SELECT c FROM Category c WHERE c.parent.id is NULL")
+	public List<Category> findRootCategories(Sort sort);
+	
+	@Query("SELECT c FROM Category c WHERE c.parent.id is NULL")
+	public Page<Category> findRootCategories(Pageable pageable);
+	
+	@Query("SELECT c FROM Category c WHERE c.name LIKE %?1%")
+	public Page<Category> search(String keyword, Pageable pageable);
 }

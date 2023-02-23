@@ -78,6 +78,20 @@
                             maxlength="64">
                     </div>
                 </div>
+
+                <div class="form-group row">
+					<label for="" class="col-sm-4 col-form-label">Parents Category</label>
+					<div class="col-sm-8">
+						<select name="" id="" style="width: 100px;">
+                            <option value="0">[No Parents]</option>
+                            
+							<th:block th:each="cat : ${listCategories}">
+								<option th:value="${cat.id}">[[${cat.name}]]</option>
+							</th:block>
+						</select>
+					</div>
+				</div>
+
                 <div class="form-group row">
                     <label for="" class="col-sm-4 col-form label">Enabled:</label>
                     <div class="col-sm-8">

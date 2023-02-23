@@ -97,9 +97,9 @@
         <div th:replace="fragments :: footer"></div>
 
     </div>
-    <script>
+    <script type="text/javascript">
         MAX_FILE_SIZE = 102400;
-
+        moduleURL = "[[@{/users}]]";
         function checkEmailUnique(form) {
             url = "[[@{/users/check_email}]]";
             userEmail = $("#email").val();
@@ -129,5 +129,8 @@
             return false;
         }
     </script>
+
+
+</body>
 
 </html>

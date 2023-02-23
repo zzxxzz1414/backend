@@ -2,15 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<head>
-
     <head th:replace="fragments :: page_head('Users - Shopping Cart Admin','tag')" />
-</head>
-
 <body>
     <div class="container-fluid">
         <div th:replace="navigation :: menu"></div>
-
         <div>
             <h2 class="text-center">Manage Users</h2>
             <a th:href="@{/users/new}" class="fas fa-user-plus fa-2x icon-dark mr-2"></a>
@@ -19,10 +14,6 @@
             <a th:href="@{/users/export/pdf}" class="fas fa-file-pdf fa-2x icon-dark mr-2"></a>
         </div>
 
-
-
-
-
         <div th:replace="fragments :: search_form_and_message('/users')" />
 
         <div class="full-details">
@@ -30,21 +21,21 @@
                 <thead class="thead-dark">
                     <tr>
                         <th class="hideable-column">
-                            <th th:replace="fragments :: column_link('id', 'User Id', 'tag')" />
+                            <th th:replace="fragments :: column_link('users','id', 'User Id', 'tag')" />
                         </th>
                         <th>Photos</th>
                         <th class="hideable-column">
-                            <th th:replace="fragments :: column_link('email','E-mail','tag')" />
+                            <th th:replace="fragments :: column_link('users','email','E-mail','tag')" />
                         </th>
                         <th>
-                            <th th:replace="fragments :: column_link('firstName','First Name','tag')" />
+                            <th th:replace="fragments :: column_link('users','firstName','First Name','tag')" />
                         </th>
                         <th>
-                            <th th:replace="fragments :: column_link('lastName','Last Name','tag')" />
+                            <th th:replace="fragments :: column_link('users','lastName','Last Name','tag')" />
                         </th>
                         <th>Roles</th>
                         <th>
-                            <th th:replace="fragments :: column_link('enabled','Enabled','tag')" />
+                            <th th:replace="fragments :: column_link('users','enabled','Enabled','tag')" />
                         </th>
                         <th></th>
                     </tr>
@@ -100,11 +91,9 @@
         <div th:replace="modal :: confirmModal"></div>
 
     </div>
-    <div th:replace="fragments :: pagination('users')"></div>
+    <div th:replace="fragments :: pagination('/users','users')"></div>
 
-    <div class="text-center m3 ">
-        <p>Shopping Cart Control Panel - Coppyright &copy; ShoppingCart</p>
-    </div>
+    <div th:replace="fragments :: footer"></div>
 
     </div>
     <script th:src="@{/js/common_list.js}"></script>
